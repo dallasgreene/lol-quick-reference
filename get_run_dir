@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+case "$(uname -s)" in
+    Darwin)
+        PROJ_ROOT=$(cd "$(dirname "$0")" || exit; pwd -P)
+        node "${PROJ_ROOT}/Other/dist/main.js" "$@"
+        ;;
+
+   Linux)
+        PROJ_ROOT=$(dirname "$(readlink -f "$0")")
+        scl enable rh-nodejs10 "node ${PROJ_ROOT}/Other/dist/main.js $*"
+        ;;
+esac
